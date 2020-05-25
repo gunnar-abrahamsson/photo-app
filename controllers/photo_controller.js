@@ -1,15 +1,18 @@
 /**
  * photo_controller
  */
-const { Photo } = require('../models')
+const { Photo, User } = require('../models')
 
 // list all photos for a user
 const index = async (req, res) => {
-    //make sure user is logedin
 
-    //get all photos with users id
+    //get user modle with related photos
+    const user = await User.fetchById(req.user.data.id, {
+        withRelated: ['photos']
+    });
 	try {
-		const photos = await Photo.fetchAll();
+        //send related photos
+		const photos = user.related('photos')
 		res.send({
 			status: 'success',
 			data: photos,
