@@ -5,44 +5,44 @@
 
 //list all albums for user
 const index = (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
+	res.status(405).send({
+		status: 'success'
+	})
 };
 
 // list a spesific album with photos for user
 const show = (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
+	res.status(405).send({
+		status: 'success'
+	})
 };
 
 // create new album
 const store = (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
+	res.status(405).send({
+		status: 'success'
+	})
 };
 
 // add photos to album VG
 const update = (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
+	res.status(405).send({
+		status: 'success'
+	})
 };
 
 // delete album and all conections VG
 const destroy = (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
+	res.status(405).send({
+		status: 'success'
+	})
 };
 
 
 module.exports = {
-    index,
-    show,
-    store,
-    update,
-    destroy,
+	index,
+	show,
+	store,
+	update,
+	destroy,
 }

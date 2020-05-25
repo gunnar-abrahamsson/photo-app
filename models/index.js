@@ -21,6 +21,6 @@ models.Photo = require('./Photo')(bookshelf);
 models.User = require('./User')(bookshelf);
 
 module.exports = {
-    bookshelf,
-    ...models,
+	bookshelf,
+	...models,
 }

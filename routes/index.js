@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const auth_controller = require('../controllers/auth_controller');
+const { validateJwtToken }= require('../controllers/middlewares/auth')
 
 // Endpoints for photos and albums
-router.use('/photos', require('./photos'));
-router.use('/albums', require('./albums'));
+router.use('/photos', [validateJwtToken], require('./photos'));
+router.use('/albums', [validateJwtToken], require('./albums'));
 
 // Login a user
 router.post('/login', auth_controller.login);
