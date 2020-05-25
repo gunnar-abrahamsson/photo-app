@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const { index, show, store, update, destroy } = require('../controllers/photo_controller')
 
-/* GET a users photos */
-router.get('/', (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
-});
+/* GET all photos for a user */
+router.get('/', index);
 
-/* GET a users specific photo */
-router.get('/:photoId', (req, res) => {
-    res.status(405).send({
-        status: 'success'
-    })
-});
+/* GET a specific photo if the user owns it */
+router.get('/:photoId', show);
+
+/* Create a new photo */
+router.post('/', store);
+
+// /* update a new photo */
+// router.put('/', update);
+
+/* delete a photo */
+router.delete('/:photoId', destroy);
 
 module.exports = router;

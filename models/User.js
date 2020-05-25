@@ -11,5 +11,7 @@ module.exports = (bookshelf) => {
         photos() {
             return this.hasMany('Photo')
         }
+      },{
+        saltRounds: 10,
       })
 }
