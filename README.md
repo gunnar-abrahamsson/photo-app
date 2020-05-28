@@ -7,7 +7,7 @@ registrera nya användare
 ## Foton
 - lista sina foton ✔️
 - skapa ett nytt foto ✔️
-- **(VG)** radera ett foto (raderar även eventuella kopplingar mellan album och fotot)
+- **(VG)** radera ett foto (raderar även eventuella kopplingar mellan album och fotot) ✔️
 
 ## Album
 - lista sina album ✔️
