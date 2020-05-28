@@ -38,11 +38,28 @@ const destroy = (req, res) => {
 	})
 };
 
+// store a photo to a album
+const storePhotosToAlbum = (req, res) => {
+	res.status(405).send({
+		status: 'success'
+	})
+};
+
+// Delete a photo from a album
+const destroyPhotosFromAlbum = (req, res) => {
+	res.status(405).send({
+		status: 'success'
+	})
+};
+
+
 
 module.exports = {
 	index,
 	show,
 	store,
 	update,
-	destroy,
+    destroy,
+    storePhotosToAlbum,
+    destroyPhotosFromAlbum,
 }
