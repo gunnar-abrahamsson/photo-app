@@ -101,9 +101,32 @@ const update = async (req, res) => {
 
 // delete album and all conections VG
 const destroy = async (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+	try{
+        //get album that we want to remove
+        const album = await new Album({
+            id: req.params.albumId,
+            user_id: req.user.data.id
+        }).fetch({ require: false });
+
+        if(!album) {
+			res.status(404).send({
+				status: 'fail',
+				data: 'Cant find requested album'
+			})
+			return;
+        }
+        
+        album.destroy();
+        res.sendStatus(204);
+
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            //no rows deleted
+			message: error.message
+		})
+        throw error
+    }
 };
 
 // store a photo to a album
@@ -136,15 +159,17 @@ const storePhotosToAlbum = async (req, res) => {
 			})
 			return;
         }
-        // attach photos to album
         /**
          * 
          * Still makes duplicate relations
          */
+        // attach photos to album
         await album.photos().attach(validData.photo_id);
+        // fetch related photos
+        await album.related('photos').fetch()
         res.send({
 			status: 'success',
-			data: album,
+			data: album.toJSON({ omitPivot: true }), //remove __pivot__,
 		})
 	} catch (error) {
 		res.status(500).send({
