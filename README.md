@@ -9,8 +9,8 @@ registrera nya användare
 - **(VG)** radera ett foto (raderar även eventuella kopplingar mellan album och fotot)
 
 ## Album
-- lista sina album
-- skapa nya album
+- lista sina album ✔️
+- skapa nya album ✔️
 - **(VG)** radera ett album (raderar även eventuella kopplingar mellan foton och albumet)
 
 ## Album > Foton
