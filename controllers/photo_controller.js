@@ -6,7 +6,6 @@ const { Photo, User } = require('../models')
 
 // list all photos for a user
 const index = async (req, res) => {
-
 	//get user modle with related photos
 	const user = await User.fetchById(req.user.data.id, {
 		withRelated: ['photos']
