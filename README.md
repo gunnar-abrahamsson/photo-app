@@ -14,7 +14,7 @@ registrera nya användare
 - **(VG)** radera ett album (raderar även eventuella kopplingar mellan foton och albumet)
 
 ## Album > Foton
-- lista foton i ett album
+- lista foton i ett album ✔️
 - lägga till foto i ett album
 - **(VG)** lägga till flera foto i ett album
 
