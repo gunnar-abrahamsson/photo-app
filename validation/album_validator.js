@@ -11,6 +11,10 @@ rules.create = [
     body('title').isString().isLength({ min: 2}),
 ];
 
+rules.updateAlbum = [
+    body('title').isString().isLength({ min: 2}),
+];
+
 rules.addPhotos = [
     body("photo_id").isArray().custom(async (value, {req}) => {
         //make sure array only has numbers

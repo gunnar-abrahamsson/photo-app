@@ -33,7 +33,7 @@ const login = async (req, res) => {
 	}
 	//fail if no user is returned
 	if (!user) {
-		res.status(401).send({
+		res.status(403).send({
 			status: 'fail',
 			data: 'Authentication required'
 		});
@@ -107,6 +107,43 @@ const register = async (req, res) => {
 	}
 }
 
+const refresh = (req, res) => {
+    const token = getTokenFromHeaders(req);
+
+    if (!token) {
+        res.status(401).send({
+            status: 'fail',
+            data: 'No token found in request headers'
+        });
+        return;
+    }
+
+    try{
+        // verify token using the refresh token secret
+        const { data } = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+        const payload = {
+            data,
+        }
+        // issue a new token using access token secret
+        const access_token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_LIFETIME || '1h'});
+
+        // send the access token to the client
+        res.send({
+            status: 'success',
+            data: {
+                access_token
+            }
+        })
+    } catch(err) {
+        res.status(403).send({
+            status: 'fail',
+            data: 'Invalid token'
+        })
+        console.error(err);
+        return;
+    }
+}
+
 const getTokenFromHeaders = (req) => {
 	// check if there is any Authorization header
 	if (!req.headers.authorization) {
@@ -124,6 +161,7 @@ const getTokenFromHeaders = (req) => {
 
 module.exports = {
 	login,
-	register,
+    register,
+    refresh,
 	getTokenFromHeaders,
 }

@@ -94,9 +94,45 @@ const store = async (req, res) => {
 
 // update album title
 const update = async (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+	//make sure request is valid
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty()){
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array()
+		})
+		return;
+	}
+
+	const validData = matchedData(req);
+	try{
+		// get album
+        const album = await new Album({
+            id: req.params.albumId,
+            user_id: req.user.data.id
+        }).fetch({ require: false });
+        if(!album) {
+			res.status(404).send({
+				status: 'fail',
+				data: 'Cant find requested album'
+			})
+			return;
+        }
+        
+        //save new data
+        await album.save(validData);
+		res.send({
+			status: 'success',
+			data: album,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exeption thrown when trying to update album'
+		})
+		throw error;
+	}
 };
 
 // delete album and all conections VG

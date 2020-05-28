@@ -88,12 +88,48 @@ const store = async (req, res) => {
 	}
 };
 
-// // Update photo
-// const update = (req, res) => {
-//     res.status(405).send({
-//         status: 'success'
-//     })
-// };
+// Update photo
+const update = async (req, res) => {
+	//make sure request is valid
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty()){
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array()
+		})
+		return;
+	}
+
+	const validData = matchedData(req);
+	try{
+		// get photo
+        const photo = await new Photo({
+            id: req.params.photoId,
+            user_id: req.user.data.id
+        }).fetch({ require: false });
+        if(!photo) {
+			res.status(404).send({
+				status: 'fail',
+				data: 'Cant find requested photo'
+			})
+			return;
+        }
+        
+        //save new data
+        await photo.save(validData);
+		res.send({
+			status: 'success',
+			data: photo,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exeption thrown when trying to update photo'
+		})
+		throw error;
+	}
+};
 
 //remove a photo and it's conections
 const destroy = async (req, res) => {
@@ -130,5 +166,6 @@ module.exports = {
 	index,
 	show,
 	store,
+	update,
 	destroy,
 }

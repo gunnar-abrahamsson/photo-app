@@ -17,4 +17,7 @@ router.post('/login', [loginRules], auth_controller.login);
 // Register a new user
 router.post('/register', [createRules], auth_controller.register);
 
+// refresh a users token
+router.post('/refresh', auth_controller.refresh);
+
 module.exports = router;
