@@ -28,7 +28,7 @@ const validateJwtToken = (req, res, next) => {
 			status: 'fail',
 			data: 'Authentication failed'
 		});
-		throw error
+		throw error.message
 	}
 	//attach payload to req.user
 	req.user = payload;

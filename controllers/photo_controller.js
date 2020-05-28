@@ -1,6 +1,7 @@
 /**
  * photo_controller
  */
+const { validationResult, matchedData } = require('express-validator');
 const { Photo, User } = require('../models')
 
 // list all photos for a user
@@ -69,10 +70,23 @@ const store = async (req, res) => {
 		return;
 	}
 
-	const {} = matchedData(req);
-	res.status(405).send({
-		status: 'success'
-	})
+	const validData = matchedData(req);
+	// add related user
+	validData.user_id = req.user.data.id
+	try{
+		//store photo to db
+		const photo = await new Photo(validData).save()
+		res.send({
+			status: 'success',
+			data: photo,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exeption thrown when trying to store photo'
+		})
+		throw error;
+	}
 };
 
 // // Update photo

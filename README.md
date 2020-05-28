@@ -1,11 +1,11 @@
 # Kravspecifikation
 ## Användare
 registrera nya användare
-- **(VG)** logga in för att få en JWT-token
+- **(VG)** logga in för att få en JWT-token ✔️
 
 ## Foton
-- lista sina foton
-- skapa ett nytt foto
+- lista sina foton ✔️
+- skapa ett nytt foto ✔️
 - **(VG)** radera ett foto (raderar även eventuella kopplingar mellan album och fotot)
 
 ## Album
