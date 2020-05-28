@@ -20,7 +20,7 @@ registrera nya användare
 
 
 ## VG-krav
-- Använda JWT istället för HTTP Basic Auth
+- Använda JWT istället för HTTP Basic Auth ✔️
 - Kunna radera ett foto (tar även bort eventuella länkar mellan fotot och album)
 - Kunna radera ett album (tar även bort eventuella länkar mellan albumet och foton)
 - Kunna lägga till flera foto samtidigt till ett album
