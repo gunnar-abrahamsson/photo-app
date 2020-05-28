@@ -95,11 +95,34 @@ const store = async (req, res) => {
 //     })
 // };
 
-//remove a photo and it's conections VG
+//remove a photo and it's conections
 const destroy = async (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+	try{
+        //get album that we want to remove
+        const photo = await new Photo({
+            id: req.params.photoId,
+            user_id: req.user.data.id
+        }).fetch({ require: false });
+
+        if(!photo) {
+			res.status(404).send({
+				status: 'fail',
+				data: 'Cant find requested photo'
+			})
+			return;
+        }
+        
+        photo.destroy();
+        res.sendStatus(204);
+
+    } catch (error) {
+        res.status(500).send({
+            status: 'error',
+            //no rows deleted
+			message: error.message
+		})
+        throw error
+    }
 };
 
 
