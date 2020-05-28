@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const { index, show, store, update, destroy, storePhotosToAlbum, destroyPhotosFromAlbum } = require('../controllers/album_controller');
+const { create } = require('../validation/album_validator');
 
 /* GET all albums for a user */
 router.get('/', index);
@@ -12,7 +13,7 @@ router.get('/', index);
 router.get('/:albumId', show);
 
 /* Create a new album */
-router.post('/', store);
+router.post('/', create, store);
 
 /* update a albums atributes */
 router.put('/:albumId', update);

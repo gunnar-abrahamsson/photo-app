@@ -36,7 +36,7 @@ const show = async (req, res) => {
             })
             .fetch({ 
                 require: false,
-                withRelated: ['photos']
+                withRelated: ['photos'],
             })
 
 		if(!album) {
@@ -48,7 +48,7 @@ const show = async (req, res) => {
 		}
 		res.send({
 			status: 'success',
-			data: album,
+			data: album.toJSON({ omitPivot: true }), //remove __pivot__
 		})
 
 	} catch (error) {
@@ -62,12 +62,37 @@ const show = async (req, res) => {
 
 // create new album
 const store = async (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+	//make sure request is valid
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty()){
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array()
+		})
+		return;
+	}
+
+	const validData = matchedData(req);
+	// add related user
+	validData.user_id = req.user.data.id
+	try{
+		//store album to db
+		const album = await new Album(validData).save()
+		res.send({
+			status: 'success',
+			data: album,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exeption thrown when trying to store album'
+		})
+		throw error;
+	}
 };
 
-// add photos to album VG
+// update album title
 const update = async (req, res) => {
 	res.status(405).send({
 		status: 'success'
