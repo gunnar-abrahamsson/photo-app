@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const { index, show, store, update, destroy, storePhotosToAlbum, destroyPhotosFromAlbum } = require('../controllers/album_controller');
+const { index, show, store, update, destroy, storePhotosToAlbum, removePhotosFromAlbum } = require('../controllers/album_controller');
 const { create, addPhotos } = require('../validation/album_validator');
 
 /* GET all albums for a user */
@@ -25,6 +25,6 @@ router.delete('/:albumId', destroy);
 router.post('/:albumId/photos', addPhotos, storePhotosToAlbum);
 
 /* Removes photos from a album */
-router.delete('/:albumId/photos/:photoId', destroyPhotosFromAlbum);
+router.delete('/:albumId/photos/:photoId', removePhotosFromAlbum);
 
 module.exports = router;

@@ -32,6 +32,7 @@ rules.addPhotos = [
         return Promise.resolve();
     })
 ];
+
 module.exports = {
     ...rules,
 }

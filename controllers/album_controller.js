@@ -155,11 +155,33 @@ const storePhotosToAlbum = async (req, res) => {
 	}
 };
 
-// Delete a album from a album
-const destroyPhotosFromAlbum = async (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+// Remove a photo from a album
+// /albums/:albumId/photos/:photoId
+const removePhotosFromAlbum = async (req, res) => {
+        try{
+            //get album /:albumId
+            const album = await new Album({
+                id: req.params.albumId,
+                user_id: req.user.data.id
+            }).fetch({ require: false });
+            
+            if(!album) {
+                res.status(404).send({
+                    status: 'fail',
+                    data: 'Cant find requested album'
+                })
+                return;
+            }
+            // detach photo from album
+            await album.photos().detach(req.params.photoId);
+            res.sendStatus(204);
+        } catch (error) {
+            res.status(500).send({
+                status: 'error',
+                message: 'Exeption thrown when trying to delete photo from album'
+            })
+            throw error;
+        }
 };
 
 
@@ -171,5 +193,5 @@ module.exports = {
 	update,
 	destroy,
 	storePhotosToAlbum,
-	destroyPhotosFromAlbum,
+	removePhotosFromAlbum,
 }
