@@ -1,11 +1,11 @@
 /**
- * Login validation rules
+ * auth validation rules
  */
 const { body } = require('express-validator');
 
 const rules = {};
 
-// Login rules
+// login rules
 rules.loginRules = [
     //make sure an email is sent
     body('email').isEmail().trim().isLength({min: 6}),

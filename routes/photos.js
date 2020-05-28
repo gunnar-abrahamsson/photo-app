@@ -14,8 +14,8 @@ router.get('/:photoId', show);
 /* Create a new photo */
 router.post('/', store);
 
-// /* update a new photo */
-// router.put('/', update);
+// /* update a photo */
+// router.put('/:photoId', update);
 
 /* delete a photo */
 router.delete('/:photoId', destroy);

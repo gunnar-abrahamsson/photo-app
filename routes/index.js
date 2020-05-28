@@ -5,10 +5,10 @@ const express = require('express');
 const router = express.Router();
 const auth_controller = require('../controllers/auth_controller');
 const { validateJwtToken }= require('../controllers/middlewares/auth')
-const { loginRules } = require('../validation/login_validator')
-const { createRules } = require('../validation/register_validator')
+const { loginRules, createRules } = require('../validation/auth_validator');
 
 // Endpoints for photos and albums
+// Need JWT for access any of the routs
 router.use('/photos', [validateJwtToken], require('./photos'));
 router.use('/albums', [validateJwtToken], require('./albums'));
 

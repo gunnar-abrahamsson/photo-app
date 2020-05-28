@@ -17,8 +17,9 @@ const validateJwtToken = (req, res, next) => {
 	}
 
     let payload = null;
-	// Validate token and extract payload
 	try{
+        // Validate token and extract payload
+        // Reject if token is invalid
 		payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		
 		

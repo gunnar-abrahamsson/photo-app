@@ -22,7 +22,7 @@ const index = async (req, res) => {
 			status: 'error',
 			message: 'Exeption thrown when getting photos'
 		})
-		throw error
+		console.error("photo_controller.index error", error);
 	}
 };
 
