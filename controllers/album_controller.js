@@ -108,9 +108,51 @@ const destroy = async (req, res) => {
 
 // store a photo to a album
 const storePhotosToAlbum = async (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+	//make sure request is valid
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty()){
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array()
+		})
+		return;
+	}
+
+	const validData = matchedData(req);
+	// add related user
+	validData.user_id = req.user.data.id
+	try{
+        //get album /:albumId
+        const album = await new Album({
+            id: req.params.albumId,
+            user_id: req.user.data.id
+        }).fetch({ require: false });
+        
+        if(!album) {
+            res.status(404).send({
+                status: 'fail',
+				data: 'Cant find requested album'
+			})
+			return;
+        }
+        // attach photos to album
+        /**
+         * 
+         * Still makes duplicate relations
+         */
+        await album.photos().attach(validData.photo_id);
+        res.send({
+			status: 'success',
+			data: album,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exeption thrown when trying to add photos to album'
+		})
+		throw error;
+	}
 };
 
 // Delete a album from a album
