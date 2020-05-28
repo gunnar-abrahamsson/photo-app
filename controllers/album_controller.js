@@ -59,7 +59,7 @@ module.exports = {
 	show,
 	store,
 	update,
-    destroy,
-    storePhotosToAlbum,
-    destroyPhotosFromAlbum,
+	destroy,
+	storePhotosToAlbum,
+	destroyPhotosFromAlbum,
 }

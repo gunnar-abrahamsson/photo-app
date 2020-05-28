@@ -13,34 +13,34 @@ module.exports = (bookshelf) => {
 			return this.hasMany('Photo')
 		}
 	  },{
-        hashSaltRounds: 10,
+		hashSaltRounds: 10,
 
-        fetchById(id, fetchOptions = {}) {
-            return new this({id}).fetch(fetchOptions);
-        },
-        
-        async login(email, password) {
-            try{
-                //get user from db
-                const user = await new this({ email }).fetch({require: false});
+		fetchById(id, fetchOptions = {}) {
+			return new this({id}).fetch(fetchOptions);
+		},
+		
+		async login(email, password) {
+			try{
+				//get user from db
+				const user = await new this({ email }).fetch({require: false});
 
-                //if no user is found return false
-                if(!user) {
-                    return false;
-                }
+				//if no user is found return false
+				if(!user) {
+					return false;
+				}
 
-                //check if password matches
-                const hash = user.get('password');
+				//check if password matches
+				const hash = user.get('password');
 
-                //return false if password is incorrect
-                //return user
-                return (await bcrypt.compare(password, hash))
-                    ? user
-                    :false;
+				//return false if password is incorrect
+				//return user
+				return (await bcrypt.compare(password, hash))
+					? user
+					:false;
 
-            } catch(error) {
-                throw error
-            }
-        }
+			} catch(error) {
+				throw error
+			}
+		}
 	  })
 }

@@ -11,5 +11,5 @@ module.exports = (bookshelf) => {
 		user() {
 			return this.belongsTo('User')
 		}
-	  })
+	})
 }

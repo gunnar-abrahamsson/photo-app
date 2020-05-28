@@ -16,22 +16,22 @@ const validateJwtToken = (req, res, next) => {
 		return;
 	}
 
-    let payload = null;
+	let payload = null;
 	try{
-        // Validate token and extract payload
-        // Reject if token is invalid
+		// Validate token and extract payload
+		// Reject if token is invalid
 		payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		
 		
 	} catch (error) {
-        res.status(401).send({
-            status: 'fail',
+		res.status(401).send({
+			status: 'fail',
 			data: 'Authentication failed'
 		});
 		throw error
 	}
-    //attach payload to req.user
-    req.user = payload;
+	//attach payload to req.user
+	req.user = payload;
 	
 	next();
 }

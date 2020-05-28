@@ -6,12 +6,12 @@ const { Photo, User } = require('../models')
 // list all photos for a user
 const index = async (req, res) => {
 
-    //get user modle with related photos
-    const user = await User.fetchById(req.user.data.id, {
-        withRelated: ['photos']
-    });
+	//get user modle with related photos
+	const user = await User.fetchById(req.user.data.id, {
+		withRelated: ['photos']
+	});
 	try {
-        //send related photos
+		//send related photos
 		const photos = user.related('photos')
 		res.send({
 			status: 'success',
@@ -27,14 +27,49 @@ const index = async (req, res) => {
 };
 
 // list a specific photo for a user
-const show = (req, res) => {
-	res.status(405).send({
-		status: 'success'
-	})
+const show = async (req, res) => {
+	try{
+		//get photo by :photoId where user_id == req.user.data.id;
+		const photo = await new Photo({
+			id: req.params.photoId,
+			user_id: req.user.data.id
+		}).fetch({ require: false })
+
+		if(!photo) {
+			res.status(404).send({
+				status: 'fail',
+				data: 'Cant find requested photo'
+			})
+			return;
+		}
+		res.send({
+			status: 'success',
+			data: photo,
+		})
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exeption thrown when trying to get photo form database'
+		})
+		throw error;
+	}
 };
 
 // add a photo to a user
-const store = (req, res) => {
+const store = async (req, res) => {
+	//make sure request is valid
+	const errors = validationResult(req);
+
+	if(!errors.isEmpty()){
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array()
+		})
+		return;
+	}
+
+	const {} = matchedData(req);
 	res.status(405).send({
 		status: 'success'
 	})
@@ -48,7 +83,7 @@ const store = (req, res) => {
 // };
 
 //remove a photo and it's conections VG
-const destroy = (req, res) => {
+const destroy = async (req, res) => {
 	res.status(405).send({
 		status: 'success'
 	})
