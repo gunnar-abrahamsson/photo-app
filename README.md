@@ -1,10 +1,25 @@
 # Endpoints
+**base URL** https://ghoti-photo.herokuapp.com
 ## user
-Registrera ny användare
 - POST /register
-Logga in
 - POST /login
 - POST /refresh
+
+## Photos
+- GET /photos
+- GET /photos/:photoId
+- POST /photos
+- PUT /photos/:photoId
+- DELETE /photos/:photoId
+
+## Albums
+- GET /albums
+- GET /albums/:albumId
+- POST /albums
+- POST /albums/:albumId/photos
+- PUT /albums/:albumId
+- DELETE /albums/:albumId
+- DELETE /albums/:albumId/photos/:photoId
 
 # Kravspecifikation
 ## Användare
