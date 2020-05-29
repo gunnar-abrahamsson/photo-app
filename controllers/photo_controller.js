@@ -104,20 +104,20 @@ const update = async (req, res) => {
 	const validData = matchedData(req);
 	try{
 		// get photo
-        const photo = await new Photo({
-            id: req.params.photoId,
-            user_id: req.user.data.id
-        }).fetch({ require: false });
-        if(!photo) {
+		const photo = await new Photo({
+			id: req.params.photoId,
+			user_id: req.user.data.id
+		}).fetch({ require: false });
+		if(!photo) {
 			res.status(404).send({
 				status: 'fail',
 				data: 'Cant find requested photo'
 			})
 			return;
-        }
-        
-        //save new data
-        await photo.save(validData);
+		}
+		
+		//save new data
+		await photo.save(validData);
 		res.send({
 			status: 'success',
 			data: photo,
@@ -134,31 +134,31 @@ const update = async (req, res) => {
 //remove a photo and it's conections
 const destroy = async (req, res) => {
 	try{
-        //get album that we want to remove
-        const photo = await new Photo({
-            id: req.params.photoId,
-            user_id: req.user.data.id
-        }).fetch({ require: false });
+		//get album that we want to remove
+		const photo = await new Photo({
+			id: req.params.photoId,
+			user_id: req.user.data.id
+		}).fetch({ require: false });
 
-        if(!photo) {
+		if(!photo) {
 			res.status(404).send({
 				status: 'fail',
 				data: 'Cant find requested photo'
 			})
 			return;
-        }
-        
-        photo.destroy();
-        res.sendStatus(204);
+		}
+		
+		photo.destroy();
+		res.sendStatus(204);
 
-    } catch (error) {
-        res.status(500).send({
-            status: 'error',
-            //no rows deleted
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			//no rows deleted
 			message: error.message
 		})
-        throw error
-    }
+		throw error
+	}
 };
 
 

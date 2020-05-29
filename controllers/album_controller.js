@@ -28,16 +28,16 @@ const index = async (req, res) => {
 
 // list a spesific album with photos for user
 const show = async (req, res) => {
-    try{
+	try{
 		//get album and related photo wher user_id == req.user.data.id
 		const album = await new Album({
-			    id: req.params.albumId,
-			    user_id: req.user.data.id
-            })
-            .fetch({ 
-                require: false,
-                withRelated: ['photos'],
-            })
+				id: req.params.albumId,
+				user_id: req.user.data.id
+			})
+			.fetch({ 
+				require: false,
+				withRelated: ['photos'],
+			})
 
 		if(!album) {
 			res.status(404).send({
@@ -108,20 +108,20 @@ const update = async (req, res) => {
 	const validData = matchedData(req);
 	try{
 		// get album
-        const album = await new Album({
-            id: req.params.albumId,
-            user_id: req.user.data.id
-        }).fetch({ require: false });
-        if(!album) {
+		const album = await new Album({
+			id: req.params.albumId,
+			user_id: req.user.data.id
+		}).fetch({ require: false });
+		if(!album) {
 			res.status(404).send({
 				status: 'fail',
 				data: 'Cant find requested album'
 			})
 			return;
-        }
-        
-        //save new data
-        await album.save(validData);
+		}
+		
+		//save new data
+		await album.save(validData);
 		res.send({
 			status: 'success',
 			data: album,
@@ -138,31 +138,31 @@ const update = async (req, res) => {
 // delete album and all conections VG
 const destroy = async (req, res) => {
 	try{
-        //get album that we want to remove
-        const album = await new Album({
-            id: req.params.albumId,
-            user_id: req.user.data.id
-        }).fetch({ require: false });
+		//get album that we want to remove
+		const album = await new Album({
+			id: req.params.albumId,
+			user_id: req.user.data.id
+		}).fetch({ require: false });
 
-        if(!album) {
+		if(!album) {
 			res.status(404).send({
 				status: 'fail',
 				data: 'Cant find requested album'
 			})
 			return;
-        }
-        
-        album.destroy();
-        res.sendStatus(204);
+		}
+		
+		album.destroy();
+		res.sendStatus(204);
 
-    } catch (error) {
-        res.status(500).send({
-            status: 'error',
-            //no rows deleted
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			//no rows deleted
 			message: error.message
 		})
-        throw error
-    }
+		throw error
+	}
 };
 
 // store a photo to a album
@@ -182,28 +182,28 @@ const storePhotosToAlbum = async (req, res) => {
 	// add related user
 	validData.user_id = req.user.data.id
 	try{
-        //get album /:albumId
-        const album = await new Album({
-            id: req.params.albumId,
-            user_id: req.user.data.id
-        }).fetch({ require: false });
-        
-        if(!album) {
-            res.status(404).send({
-                status: 'fail',
+		//get album /:albumId
+		const album = await new Album({
+			id: req.params.albumId,
+			user_id: req.user.data.id
+		}).fetch({ require: false });
+		
+		if(!album) {
+			res.status(404).send({
+				status: 'fail',
 				data: 'Cant find requested album'
 			})
 			return;
-        }
-        /**
-         * 
-         * Still makes duplicate relations
-         */
-        // attach photos to album
-        await album.photos().attach(validData.photo_ids);
-        // fetch related photos
-        await album.related('photos').fetch()
-        res.send({
+		}
+		/**
+		 * 
+		 * Still makes duplicate relations
+		 */
+		// attach photos to album
+		await album.photos().attach(validData.photo_ids);
+		// fetch related photos
+		await album.related('photos').fetch()
+		res.send({
 			status: 'success',
 			data: album.toJSON({ omitPivot: true }), //remove __pivot__,
 		})
@@ -219,30 +219,30 @@ const storePhotosToAlbum = async (req, res) => {
 // Remove a photo from a album
 // /albums/:albumId/photos/:photoId
 const removePhotosFromAlbum = async (req, res) => {
-        try{
-            //get album /:albumId
-            const album = await new Album({
-                id: req.params.albumId,
-                user_id: req.user.data.id
-            }).fetch({ require: false });
-            
-            if(!album) {
-                res.status(404).send({
-                    status: 'fail',
-                    data: 'Cant find requested album'
-                })
-                return;
-            }
-            // detach photo from album
-            await album.photos().detach(req.params.photoId);
-            res.sendStatus(204);
-        } catch (error) {
-            res.status(500).send({
-                status: 'error',
-                message: 'Exeption thrown when trying to delete photo from album'
-            })
-            throw error;
-        }
+		try{
+			//get album /:albumId
+			const album = await new Album({
+				id: req.params.albumId,
+				user_id: req.user.data.id
+			}).fetch({ require: false });
+			
+			if(!album) {
+				res.status(404).send({
+					status: 'fail',
+					data: 'Cant find requested album'
+				})
+				return;
+			}
+			// detach photo from album
+			await album.photos().detach(req.params.photoId);
+			res.sendStatus(204);
+		} catch (error) {
+			res.status(500).send({
+				status: 'error',
+				message: 'Exeption thrown when trying to delete photo from album'
+			})
+			throw error;
+		}
 };
 
 
