@@ -1,25 +1,25 @@
 # Endpoints
 **base URL** https://ghoti-photo.herokuapp.com
 ## user
-- POST /register
-- POST /login
-- POST /refresh
+- **POST /register**  Register a new user
+- **POST /login**  Login a user
+- **POST /refresh** Refresh Tokens
 
 ## Photos
-- GET /photos
-- GET /photos/:photoId
-- POST /photos
-- PUT /photos/:photoId
-- DELETE /photos/:photoId
+- **GET /photos**  GET all photos for a user
+- **GET /photos/:photoId**  GET a specific photo if the user owns it
+- **POST /photos**  Create a new photo
+- **PUT /photos/:photoId**  update a photo
+- **DELETE /photos/:photoId**  delete a photo
 
 ## Albums
-- GET /albums
-- GET /albums/:albumId
-- POST /albums
-- POST /albums/:albumId/photos
-- PUT /albums/:albumId
-- DELETE /albums/:albumId
-- DELETE /albums/:albumId/photos/:photoId
+- **GET /albums**  GET all albums for a user
+- **GET /albums/:albumId**  GET a users specific album with photos
+- **POST /albums**  Create a new album
+- **POST /albums/:albumId/photos**  adds photos to a album
+- **PUT /albums/:albumId**  update a albums atributes
+- **DELETE /albums/:albumId**  delete a album
+- **DELETE /albums/:albumId/photos/:photoId**  Removes photos from a album
 
 # Kravspecifikation
 ## Användare
