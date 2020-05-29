@@ -200,7 +200,7 @@ const storePhotosToAlbum = async (req, res) => {
          * Still makes duplicate relations
          */
         // attach photos to album
-        await album.photos().attach(validData.photo_id);
+        await album.photos().attach(validData.photo_ids);
         // fetch related photos
         await album.related('photos').fetch()
         res.send({

@@ -16,7 +16,7 @@ rules.updateAlbum = [
 ];
 
 rules.addPhotos = [
-    body("photo_id").isArray().custom(async (value, {req}) => {
+    body("photo_ids").isArray().custom(async (value, {req}) => {
         //make sure array only has numbers
         if(value.some(isNaN)){
             return Promise.reject(`Array can only include numbers`);

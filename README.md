@@ -18,8 +18,8 @@ registrera nya användare
 
 ## Album > Foton
 - lista foton i ett album ✔️
-- lägga till foto i ett album ??? 
-- **(VG)** lägga till flera foto i ett album ✔️ ??? ska man kunna göra båda?
+- lägga till foto i ett album ✔️
+- **(VG)** lägga till flera foto i ett album ✔️
 
 
 ## VG-krav
