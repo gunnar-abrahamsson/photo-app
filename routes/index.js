@@ -7,7 +7,7 @@ const auth_controller = require('../controllers/auth_controller');
 const { validateJwtToken }= require('../controllers/middlewares/auth')
 const { loginRules, createRules } = require('../validation/auth_validator');
 
-router.get('/', (res) => {
+router.get('/', (req, res) => {
 	res.send({
 		status: 'success',
 		data: ''
