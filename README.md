@@ -3,8 +3,24 @@
 ## user
 ### POST /register
 Register a new user
+```json
+{
+	"email": "saltbay@example.se",
+	"password": "saltbay@example",
+	"first_name": "Salt",
+	"last_name": "Bay"
+}
+```
 ### POST /login
 Login a user
+```json
+{
+	"email": "saltbay@example.se",
+	"password": "saltbay@example",
+	"first_name": "Salt",
+	"last_name": "Bay"
+}
+```
 ### POST /refresh
 Refresh Tokens
 
