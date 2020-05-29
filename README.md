@@ -1,6 +1,6 @@
 # Endpoints
 **base URL** https://ghoti-photo.herokuapp.com
-## user
+### user
 - **POST /register**  Register a new user
 - **POST /login**  Login a user
 - **POST /refresh** Refresh Tokens
