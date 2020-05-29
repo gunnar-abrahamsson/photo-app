@@ -7,6 +7,13 @@ const auth_controller = require('../controllers/auth_controller');
 const { validateJwtToken }= require('../controllers/middlewares/auth')
 const { loginRules, createRules } = require('../validation/auth_validator');
 
+router.get('/', (res) => {
+	res.send({
+		status: 'success',
+		data: ''
+	})
+})
+
 // Endpoints for photos and albums
 // Need JWT for access any of the routs
 router.use('/photos', [validateJwtToken], require('./photos'));
