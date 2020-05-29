@@ -1,3 +1,11 @@
+# Endpoints
+## user
+Registrera ny användare
+- POST /register
+Logga in
+- POST /login
+- POST /refresh
+
 # Kravspecifikation
 ## Användare
 registrera nya användare
