@@ -68,16 +68,16 @@ adds photos to a album
 }
 ```
 ### PUT /albums/:albumId
-update a albums atributes
+update an albums atributes
 ```json
 {
 	"title": "Album title to update"
 }
 ```
 ### DELETE /albums/:albumId
-delete a album
+delete an album
 ### DELETE /albums/:albumId/photos/:photoId
-Removes photos from a album
+Removes photos from an album
 
 # Kravspecifikation
 ## Användare
