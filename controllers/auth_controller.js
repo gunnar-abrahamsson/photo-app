@@ -93,10 +93,15 @@ const register = async (req, res) => {
 	try {
 		//create a new user with the valid data
 		const storedUser = await new User(validData).save();
-		console.log('new user: ', storedUser);
+        console.log('new user: ', storedUser);
+        //remove password from api response
 		res.send({
 			status: 'success',
-			data: storedUser
+			data: {
+                email: storedUser.email,
+                first_name: storedUser.first_name,
+                last_name: storedUser.last_name
+            }
 		})
 	}  catch (error) {
 		res.status(500).send({
