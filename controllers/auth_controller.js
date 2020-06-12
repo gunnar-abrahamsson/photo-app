@@ -98,9 +98,9 @@ const register = async (req, res) => {
 		res.send({
 			status: 'success',
 			data: {
-                email: storedUser.email,
-                first_name: storedUser.first_name,
-                last_name: storedUser.last_name
+                email: storedUser.get('email'),
+                first_name: storedUser.get('first_name'),
+                last_name: storedUser.get('last_name')
             }
 		})
 	}  catch (error) {
