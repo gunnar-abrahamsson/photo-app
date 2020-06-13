@@ -61,7 +61,7 @@ Create a new album
 }
 ```
 ### POST /albums/:albumId/photos
-adds photos to a album
+adds photos to an album
 ```json
 {
 	"photo_ids": [1, 2, 4]
